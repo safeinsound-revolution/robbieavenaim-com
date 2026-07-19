@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import about from "../content/about.json";
+---
+<Layout title="About — Robbie Avenaim" description={about.shortBio}>
+  <section class="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
+    <p class="eyebrow mb-3">About</p>
+    <h1 class="mb-10 text-3xl font-bold tracking-tight sm:text-5xl">Biography</h1>
+
+    <div class="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
+      <div>
+        {about.portrait && (
+          <img
+            src={about.portrait}
+            alt="Robbie Avenaim"
+            class="w-full border border-line object-cover"
+          />
+        )}
+      </div>
+
+      <div class="max-w-2xl">
+        <p class="text-lg leading-relaxed text-paper">{about.shortBio}</p>
+
+        <h2 class="mt-14 mb-2 font-mono text-xs uppercase tracking-[0.14em] text-accent">Full biography</h2>
+        <div class="prose-body">
+          {about.fullBio.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((p) => ({
+    params: { slug: p.id },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+function isVimeo(url: string) {
+  return url.includes("vimeo.com");
+}
+function toVimeoEmbed(url: string) {
+  return url.includes("player.vimeo.com") ? url : url.replace("vimeo.com", "player.vimeo.com/video");
+}
+---
+<Layout title={`${project.data.title} — Robbie Avenaim`} description={project.data.summary}>
+  <section>
+    {project.data.heroImage && (
+      <div class="aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
+        <img src={project.data.heroImage} alt={project.data.title} class="h-full w-full object-cover" />
+      </div>
+    )}
+    <div class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+      <a href="/projects/" class="font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-accent">← Projects</a>
+      <p class="eyebrow mt-6 mb-3">Project</p>
+      <h1 class="mb-3 text-3xl font-bold tracking-tight sm:text-5xl">{project.data.title}</h1>
+      <p class="mb-10 text-lg leading-relaxed text-muted">{project.data.summary}</p>
+
+      {project.data.externalUrl && (
+        <a href={project.data.externalUrl} target="_blank" rel="noopener noreferrer" class="mb-10 inline-block border border-accent px-5 py-2.5 font-mono text-xs uppercase tracking-[0.1em] text-accent hover:bg-accent hover:text-ink">
+          Visit website ↗
+        </a>
+      )}
+
+      <div class="prose-body">
+        <Content />
+      </div>
+
+      {project.data.videos.length > 0 && (
+        <div class="mt-14 flex flex-col gap-10">
+          {project.data.videos.map((v) => (
+            <div>
+              <div class="aspect-video overflow-hidden border border-line bg-surface">
+                <iframe
+                  src={isVimeo(v.url) ? toVimeoEmbed(v.url) : v.url}
+                  class="h-full w-full"
+                  loading="lazy"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  title={v.caption ?? project.data.title}
+                ></iframe>
+              </div>
+              {v.caption && <p class="mt-2 font-mono text-xs text-muted">{v.caption}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {project.data.gallery.length > 0 && (
+        <div class="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {project.data.gallery.map((src) => (
+            <div class="aspect-square overflow-hidden border border-line bg-surface">
+              <img src={src} alt="" loading="lazy" class="h-full w-full object-cover" />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

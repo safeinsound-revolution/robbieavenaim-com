@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "robbieavenaim-cms-auth",
+  "account_id": "a4b6a5d5b72da9f080658c867a189b18",
+  "main": "src/index.js",
+  "compatibility_date": "2026-01-01",
+  "vars": {
+    "ALLOWED_ORIGIN": "*"
+  }
+}

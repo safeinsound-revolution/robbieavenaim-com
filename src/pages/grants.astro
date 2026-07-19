@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const grants = await getCollection("grants");
+const byGroup = (group: string) =>
+  grants
+    .filter((g) => g.data.group === group)
+    .sort((a, b) => a.data.order - b.data.order);
+
+const sections = [
+  { key: "artist", title: "Grants awarded to the artist" },
+  { key: "festival", title: "Grants awarded for the WHAT IS MUSIC? Festival" },
+  { key: "philanthropic", title: "Philanthropic support" },
+];
+---
+<Layout title="Grants & Awards — Robbie Avenaim">
+  <section class="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+    <p class="eyebrow mb-3">Grants &amp; Awards</p>
+    <h1 class="mb-12 text-3xl font-bold tracking-tight sm:text-5xl">Grants & Awards</h1>
+
+    {sections.map((section) => (
+      <div class="mb-14">
+        <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-accent">{section.title}</h2>
+        <ul class="flex flex-col divide-y divide-line border-t border-line">
+          {byGroup(section.key).map((g) => (
+            <li class="flex flex-col gap-1 py-4 sm:flex-row sm:gap-6">
+              <span class="w-32 shrink-0 font-mono text-sm text-muted">{g.data.year}</span>
+              <span class="text-sm leading-relaxed text-paper">{g.data.description}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+</Layout>

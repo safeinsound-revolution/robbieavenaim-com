@@ -1,0 +1,116 @@
+backend:
+  name: github
+  repo: jowtron/robbieavenaim-com
+  branch: main
+  base_url: https://robbieavenaim-cms-auth.josephderrick.workers.dev
+  auth_endpoint: auth
+
+media_folder: "public/images"
+public_folder: "/images"
+
+site_url: https://robbieavenaim.com
+logo_url: /favicon.svg
+
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - file: src/content/home.json
+        label: Homepage
+        name: home
+        fields:
+          - { label: Hero Image, name: heroImage, widget: image }
+          - { label: Hero Image Caption, name: heroCaption, widget: string, required: false }
+          - { label: Intro Text, name: intro, widget: text }
+
+      - file: src/content/about.json
+        label: About / Biography
+        name: about
+        fields:
+          - { label: Portrait, name: portrait, widget: image }
+          - { label: Short Bio (shown on homepage-linked intro), name: shortBio, widget: text }
+          - label: Full Biography
+            name: fullBio
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+
+      - file: src/content/contact.json
+        label: Contact & Socials
+        name: contact
+        fields:
+          - { label: Instagram URL, name: instagram, widget: string, required: false }
+          - { label: Facebook URL, name: facebook, widget: string, required: false }
+          - { label: Email, name: email, widget: string, required: false }
+
+  - name: projects
+    label: Projects
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Display Order, name: order, widget: number }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Hero Image, name: heroImage, widget: image, required: false }
+      - { label: External Website URL, name: externalUrl, widget: string, required: false }
+      - label: Videos
+        name: videos
+        widget: list
+        required: false
+        fields:
+          - { label: Embed URL, name: url, widget: string }
+          - { label: Caption, name: caption, widget: string, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        field: { label: Image, name: image, widget: image }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: discography
+    label: Discography
+    folder: src/content/discography
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Display Order, name: order, widget: number }
+      - { label: Credits, name: credits, widget: text }
+      - { label: Label / Catalogue, name: label, widget: string, required: false }
+      - { label: Year, name: year, widget: string, required: false }
+      - { label: Cover Image, name: image, widget: image, required: false }
+      - label: Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Link Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+      - { label: Sold Out, name: soldOut, widget: boolean, default: false }
+
+  - name: testimonials
+    label: Testimonials
+    folder: src/content/testimonials
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Display Order, name: order, widget: number }
+      - { label: Quote, name: quote, widget: text }
+      - { label: Author / Attribution, name: author, widget: string }
+
+  - name: grants
+    label: Grants & Awards
+    folder: src/content/grants
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Display Order, name: order, widget: number }
+      - { label: Year, name: year, widget: string }
+      - { label: Description, name: description, widget: text }
+      - label: Group
+        name: group
+        widget: select
+        options:
+          - { label: "Grants awarded to the artist", value: artist }
+          - { label: "WHAT IS MUSIC? Festival grants", value: festival }
+          - { label: "Philanthropic support", value: philanthropic }

@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const testimonials = (await getCollection("testimonials")).sort((a, b) => a.data.order - b.data.order);
+---
+<Layout title="Testimonials — Robbie Avenaim">
+  <section class="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+    <p class="eyebrow mb-3">Testimonials</p>
+    <h1 class="mb-12 text-3xl font-bold tracking-tight sm:text-5xl">What others say</h1>
+
+    <div class="flex flex-col divide-y divide-line border-t border-line">
+      {testimonials.map((t) => (
+        <blockquote class="py-8">
+          <p class="text-xl leading-snug text-paper sm:text-2xl">&ldquo;{t.data.quote}&rdquo;</p>
+          <footer class="mt-4 font-mono text-xs uppercase tracking-[0.08em] text-muted">
+            {t.data.author}
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+</Layout>

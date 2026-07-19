@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --color-ink: #0a0a0b;
+  --color-surface: #131315;
+  --color-surface-2: #1c1c1f;
+  --color-line: #2a2a2e;
+  --color-paper: #f4f3ee;
+  --color-muted: #9b9a94;
+  --color-accent: #ff5a1f;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--color-accent);
+}
+
+.prose-body :where(p) {
+  margin-top: 1.15em;
+  line-height: 1.75;
+  color: var(--color-paper);
+}
+
+.prose-body :where(blockquote) {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.25rem;
+  margin: 1.75em 0;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.prose-body :where(a) {
+  color: var(--color-paper);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+}
+
+.prose-body :where(strong) {
+  color: var(--color-paper);
+}
+
+.prose-body :where(ul) {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-top: 1.15em;
+}
+
+.prose-body :where(li) {
+  margin-top: 0.4em;
+  line-height: 1.7;
+}
+
+.prose-body :where(h1, h2, h3) {
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
