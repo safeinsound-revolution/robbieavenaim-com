@@ -25,4 +25,15 @@ Most content lives in `src/content/` as plain Markdown/YAML — edit directly, o
 
 ## Deployment
 
-Pushing to `main` triggers a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and deploys it to Cloudflare Pages via Wrangler.
+Pushing to `main` triggers a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and
+deploys it to Cloudflare Pages via Wrangler. The workflow is currently a no-op until it's turned on:
+
+1. Add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+2. Add a repo variable `DEPLOY_ENABLED` set to `true`.
+
+Until then, deploy manually from the repo root with:
+
+```sh
+npm run build
+npx wrangler pages deploy dist --project-name=robbieavenaim-com --branch=main
+```

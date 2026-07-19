@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    # Skips cleanly (instead of failing) until CLOUDFLARE_API_TOKEN /
+    # CLOUDFLARE_ACCOUNT_ID are added as repo secrets.
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
     steps:
       - uses: actions/checkout@v4
 
