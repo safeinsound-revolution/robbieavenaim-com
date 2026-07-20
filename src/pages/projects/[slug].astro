@@ -19,6 +19,19 @@ function isVimeo(url: string) {
 function toVimeoEmbed(url: string) {
   return url.includes("player.vimeo.com") ? url : url.replace("vimeo.com", "player.vimeo.com/video");
 }
+function isYouTube(url: string) {
+  return url.includes("youtube.com") || url.includes("youtu.be");
+}
+function toYouTubeEmbed(url: string) {
+  if (url.includes("/embed/")) return url;
+  const id = url.match(/[?&]v=([^&]+)/)?.[1] ?? url.match(/youtu\.be\/([^?&/]+)/)?.[1];
+  return id ? `https://www.youtube.com/embed/${id}` : url;
+}
+function toEmbed(url: string) {
+  if (isVimeo(url)) return toVimeoEmbed(url);
+  if (isYouTube(url)) return toYouTubeEmbed(url);
+  return url;
+}
 ---
 <Layout title={`${project.data.title} — Robbie Avenaim`} description={project.data.summary}>
   <section>
@@ -49,7 +62,7 @@ function toVimeoEmbed(url: string) {
             <div>
               <div class="aspect-video overflow-hidden border border-line bg-surface">
                 <iframe
-                  src={isVimeo(v.url) ? toVimeoEmbed(v.url) : v.url}
+                  src={toEmbed(v.url)}
                   class="h-full w-full"
                   loading="lazy"
                   allow="autoplay; fullscreen; picture-in-picture"
