@@ -1,31 +1,24 @@
 # Setting up the CMS
 
 The admin UI at `/admin/` is [Sveltia CMS](https://github.com/sveltia/sveltia-cms) — it edits the files in
-`src/content/` directly and commits to GitHub. The site and the OAuth worker that lets the CMS log in via
-GitHub are both already deployed; **one manual step is left** because GitHub doesn't let this be done via API —
-creating the OAuth App itself has to happen in the GitHub UI.
+`src/content/` directly and commits to GitHub (`safeinsound-revolution/robbieavenaim-com`), which redeploys
+the site. Anyone who edits needs **write access** to that repo (add them as a collaborator).
 
-## One-time setup (~2 minutes)
+You can sign in two ways — full details and the manual checklist are in the repo root **`README.md`
+→ "CMS setup"**. In short:
 
-1. Go to <https://github.com/settings/applications/new> (repo owner: `jowtron`).
-2. Fill in:
-   - **Application name**: `Robbie Avenaim CMS`
-   - **Homepage URL**: `https://robbieavenaim.com`
-   - **Authorization callback URL**: `https://robbieavenaim-cms-auth.josephderrick.workers.dev/callback`
-3. Click **Register application**.
-4. Copy the **Client ID**, then click **Generate a new client secret** and copy that too (you only see it once).
-5. Set both as secrets on the auth worker:
-   ```sh
-   cd workers/cms-auth
-   wrangler secret put GITHUB_CLIENT_ID
-   wrangler secret put GITHUB_CLIENT_SECRET
-   ```
-6. Visit `https://robbieavenaim.com/admin/` and log in with GitHub.
+- **Option A — personal access token:** nothing to configure. At `/admin/`, sign in with a GitHub
+  fine-grained PAT scoped to the `robbieavenaim-com` repo (Contents: read & write).
 
-That's it — after this, editing content, uploading images, and publishing all happen through the CMS UI and
-land as commits on `main`, which redeploys the site automatically via GitHub Actions.
+- **Option B — one-click "Sign in with GitHub":** already wired. `config.yml`'s `base_url` points at the
+  **shared** `sveltia-cms-auth` OAuth worker on Robbie's Cloudflare account
+  (`https://sveltia-cms-auth.robbie-avenaim.workers.dev`) — the same one Safe in Sound uses. The GitHub
+  OAuth app and worker secrets already exist and are reused; **no new OAuth app or secrets for this site.**
+  The only remaining step is that robbieavenaim.com's domains are on the worker's `ALLOWED_DOMAINS` — they've
+  been added to the worker's source (`workers/sveltia-cms-auth/wrangler.toml` in the Safe in Sound repo); run
+  `wrangler deploy` there once to apply it.
 
 ## If the repo or domain changes
 
-Update `public/admin/config.yml` (`backend.repo`, `site_url`) and the worker's callback URL / GitHub OAuth App
-homepage to match.
+Update `config.yml` (`backend.repo`, `site_url`) and add the new domain to the shared worker's
+`ALLOWED_DOMAINS` (in the Safe in Sound repo's `workers/sveltia-cms-auth/wrangler.toml`), then redeploy it.

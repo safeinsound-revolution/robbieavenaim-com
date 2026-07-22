@@ -1,8 +1,12 @@
 backend:
   name: github
-  repo: jowtron/robbieavenaim-com
+  repo: safeinsound-revolution/robbieavenaim-com
   branch: main
-  base_url: https://robbieavenaim-cms-auth.josephderrick.workers.dev
+  # One-click "Sign in with GitHub" via the shared sveltia-cms-auth OAuth
+  # bridge on Robbie's Cloudflare account (the same worker Safe in Sound uses).
+  # See README "CMS setup". To sign in with a personal access token instead,
+  # you can comment out base_url.
+  base_url: https://sveltia-cms-auth.robbie-avenaim.workers.dev
   auth_endpoint: auth
 
 media_folder: "public/images"
