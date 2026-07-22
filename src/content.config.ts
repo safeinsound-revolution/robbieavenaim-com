@@ -14,6 +14,7 @@ const projects = defineCollection({
         z.object({
           url: z.string(),
           caption: z.string().optional(),
+          poster: z.string().optional(),
         })
       )
       .default([]),

@@ -61,9 +61,18 @@ collections:
         name: videos
         widget: list
         required: false
+        hint: 'Add a clip for each video. Leave the list empty to hide the video section entirely.'
         fields:
-          - { label: Embed URL, name: url, widget: string }
+          - label: Video URL
+            name: url
+            widget: string
+            hint: 'Paste a YouTube or Vimeo link (or a direct .mp4 / .webm file URL).'
           - { label: Caption, name: caption, widget: string, required: false }
+          - label: Video thumbnail
+            name: poster
+            widget: image
+            required: false
+            hint: 'Optional. Only used for a direct .mp4 / .webm file — an image shown before the video plays. YouTube/Vimeo supply their own thumbnail.'
       - label: Gallery
         name: gallery
         widget: list

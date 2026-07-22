@@ -13,25 +13,26 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 
-function isVimeo(url: string) {
-  return url.includes("vimeo.com");
+type ParsedVideo =
+  | { type: "embed"; src: string }
+  | { type: "file"; src: string; mime: string };
+
+// Turn a pasted URL into either a privacy-friendly embed (YouTube via
+// youtube-nocookie.com, Vimeo with Do-Not-Track) or a self-hosted file.
+function parseVideo(raw: string): ParsedVideo | null {
+  const url = raw?.trim();
+  if (!url) return null;
+  const yt = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/,
+  );
+  if (yt) return { type: "embed", src: `https://www.youtube-nocookie.com/embed/${yt[1]}` };
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return { type: "embed", src: `https://player.vimeo.com/video/${vimeo[1]}?dnt=1` };
+  return { type: "file", src: url, mime: /\.webm(\?|$)/i.test(url) ? "video/webm" : "video/mp4" };
 }
-function toVimeoEmbed(url: string) {
-  return url.includes("player.vimeo.com") ? url : url.replace("vimeo.com", "player.vimeo.com/video");
-}
-function isYouTube(url: string) {
-  return url.includes("youtube.com") || url.includes("youtu.be");
-}
-function toYouTubeEmbed(url: string) {
-  if (url.includes("/embed/")) return url;
-  const id = url.match(/[?&]v=([^&]+)/)?.[1] ?? url.match(/youtu\.be\/([^?&/]+)/)?.[1];
-  return id ? `https://www.youtube.com/embed/${id}` : url;
-}
-function toEmbed(url: string) {
-  if (isVimeo(url)) return toVimeoEmbed(url);
-  if (isYouTube(url)) return toYouTubeEmbed(url);
-  return url;
-}
+
+const videos = project.data.videos.map((v) => ({ ...v, parsed: parseVideo(v.url) }));
+const hasVideos = videos.some((v) => v.parsed);
 ---
 <Layout title={`${project.data.title} — Robbie Avenaim`} description={project.data.summary}>
   <section>
@@ -56,19 +57,31 @@ function toEmbed(url: string) {
         <Content />
       </div>
 
-      {project.data.videos.length > 0 && (
+      {hasVideos && (
         <div class="mt-14 flex flex-col gap-10">
-          {project.data.videos.map((v) => (
+          {videos.map((v) => v.parsed && (
             <div>
               <div class="aspect-video overflow-hidden border border-line bg-surface">
-                <iframe
-                  src={toEmbed(v.url)}
-                  class="h-full w-full"
-                  loading="lazy"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen
-                  title={v.caption ?? project.data.title}
-                ></iframe>
+                {v.parsed.type === "embed" ? (
+                  <iframe
+                    src={v.parsed.src}
+                    class="h-full w-full border-0"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    title={v.caption ?? project.data.title}
+                  ></iframe>
+                ) : (
+                  <video
+                    class="h-full w-full border-0"
+                    controls
+                    preload="metadata"
+                    playsinline
+                    poster={v.poster || undefined}
+                  >
+                    <source src={v.parsed.src} type={v.parsed.mime} />
+                  </video>
+                )}
               </div>
               {v.caption && <p class="mt-2 font-mono text-xs text-muted">{v.caption}</p>}
             </div>
