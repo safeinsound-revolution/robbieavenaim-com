@@ -1,22 +1,19 @@
 ---
-title: "Motor-Stick (EMS / Vstix)"
+title: Motor-Stick (EMS / Vstix)
 order: 2
-summary: >-
-  A small DC motor with a counterbalance attached to a stick, chopstick or
-  flexible rod — oscillating to strike objects in complex orbital paths,
-  producing rhythms and textures outside the framework of traditional
-  musical sound.
-heroImage: ""
-gallery: []
+summary: A small DC motor with a counterbalance attached to a stick, chopstick or flexible rod — oscillating to strike objects in complex orbital paths, producing rhythms and textures outside the framework of traditional musical sound.
+heroImage: /images/Screen Shot 2026-07-23 at 9.31.06 pm.png
+externalUrl: ''
 videos:
   - url: https://www.youtube.com/embed/g7h4qMvjNTc
-    caption: "Vstix 360° — Ballet Aveugle: Pas De Six / Study #4 (2019)"
+    caption: 'Vstix 360° — Ballet Aveugle: Pas De Six / Study #4 (2019)'
   - url: https://player.vimeo.com/video/279764344
-    caption: "Vstix 360° — Mobile Study #3 (2018)"
+    caption: 'Vstix 360° — Mobile Study #3 (2018)'
   - url: https://www.youtube.com/embed/ZwIXy4SqwFU
-    caption: "EMS – Vstix 360° — Study #2 (2011–12)"
+    caption: 'EMS – Vstix 360° — Study #2 (2011–12)'
   - url: https://www.youtube.com/embed/XgPLfTGbB3g
-    caption: "Vstix 360° — Mobile Study #1 (2016)"
+    caption: 'Vstix 360° — Mobile Study #1 (2016)'
+gallery: []
 ---
 
 The Motor-Stick uses a small DC motor with a counterbalance attached to a stick, cooking chopstick or flexible rod. While in operation, the device oscillates the attached stick and allows it to produce complex orbital paths, striking an object or surface and propelling the stick to the next object. Over time, distinctive rhythms and textures emerge, sitting outside the framework of traditionally conceived musical sounds — a new kind of gestural sound produced by direct acoustic synthesis rather than the musique concrète or digital technique of distorting recorded sound.
