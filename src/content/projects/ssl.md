@@ -1,21 +1,18 @@
 ---
-title: "SSL — Sonic Systems Laboratory"
+title: SSL - Sonic Systems Laboratory
 order: 3
-summary: >-
-  Dale Gorfinkel and Robbie Avenaim redefine the vibraphone — micro-tonal
-  tuning, additional motors, bows, homemade electronic sticks and
-  battery-operated vibrating objects.
+summary: Dale Gorfinkel and Robbie Avenaim redefine the vibraphone — micro-tonal tuning, additional motors, bows, homemade electronic sticks and battery-operated vibrating objects.
 heroImage: /images/ssl/cover.jpg
 externalUrl: http://dalegorfinkel.com
-gallery: []
 videos:
   - url: https://www.youtube.com/watch?v=7uAK2TOadFU
-    caption: "Live at the Toff, Melbourne, Australia (2014)"
+    caption: Live at the Toff, Melbourne, Australia (2014)
   - url: https://www.youtube.com/watch?v=8nt-kJcWSU8
-    caption: "Live on ABC TV (program SET), 2008"
+    caption: Live on ABC TV (program SET), 2008
+gallery: []
 ---
 
-*"Whatever preconceptions you may have about what a vibraphone should sound like, cast them aside now... a beautifully crafted 32 minute improvisation."* — Brian Marley, The Wire
+_"Whatever preconceptions you may have about what a vibraphone should sound like, cast them aside now... a beautifully crafted 32 minute improvisation."_ — Brian Marley, The Wire
 
 Over the past 5 years Dale Gorfinkel has developed a unique language on the vibraphone which involves utilizing the tremolo mechanism, additional motors, bows and creative percussive techniques. He has also returned his instrument to a micro-tonal system based on just intonation. Robbie Avenaim has also developed his own approach to the instrument — using homemade electronic sticks and battery-operated vibrating objects, he is able to create complex rhythms and delicate textures.
 
