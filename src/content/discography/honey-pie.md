@@ -1,9 +1,9 @@
 ---
 title: Honey Pie
-order: 9
+order: 12
 credits: Robbie Avenaim, Oren Ambarchi and Keith Rowe
-label: "GROB 648 (2002)"
-year: "2002"
+label: GROB 648 (2002)
+year: '2002'
 image: /images/discography/honey-pie.png
 links:
   - label: Label info
