@@ -1,11 +1,10 @@
 ---
-title: "SARPS — Semi-Automated Robotic Percussion System"
+title: About SARPS - Semi-Automated Robotic Percussion System
 order: 1
-summary: >-
-  A robotic midi device used in performance that, when programmed, strikes
-  drums much like a synthesizer — a logical extension of Nancarrow and
-  Xenakis's efforts to introduce randomised, algorithmic elements into music.
+summary: A robotic midi device used in performance that, when programmed, strikes drums much like a synthesizer — a logical extension of Nancarrow and Xenakis's efforts to introduce randomised, algorithmic elements into music.
 heroImage: /images/sarps/sarps-banner.jpg
+externalUrl: ''
+videos: []
 gallery:
   - /images/sarps/gallery-1.jpg
   - /images/sarps/gallery-2.jpg
@@ -13,7 +12,6 @@ gallery:
   - /images/sarps/gallery-4.jpg
   - /images/sarps/gallery-5.jpg
   - /images/sarps/gallery-6.jpg
-videos: []
 ---
 
 Avenaim conceived SARPS (Semi-Automated Robotic Percussion System) as a way of introducing inhumanly intricate, fast and dense rhythmic embellishments into his acoustic performance practice. Drawing inspiration from the modernist abstraction of 20th-century composition, SARPS incorporates the philosophies behind rhythmic complexity as explored by composers like [Conlon Nancarrow](https://en.wikipedia.org/wiki/Studies_for_Player_Piano_(Nancarrow)) (with his Player Piano studies) and [Iannis Xenakis](https://en.wikipedia.org/wiki/Iannis_Xenakis) (whose stochastic approach introduced algorithmic parameters as a compositional technique).
