@@ -1,5 +1,5 @@
 ---
-title: Motor-Stick (EMS / Vstix)
+title: Kinetic Motorised Sound Sculpures
 order: 2
 summary: A small DC motor with a counterbalance attached to a stick, chopstick or flexible rod — oscillating to strike objects in complex orbital paths, producing rhythms and textures outside the framework of traditional musical sound.
 heroImage: /images/Screen Shot 2026-07-23 at 9.31.06 pm.png
