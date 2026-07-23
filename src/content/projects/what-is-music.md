@@ -1,14 +1,12 @@
 ---
-title: "WHAT IS MUSIC?"
-order: 5
-summary: >-
-  Australia's premier annual touring showcase of local and international
-  experimental music, produced, directed and curated by Robbie Avenaim
-  (1994–2011) and Oren Ambarchi (1994–2005).
+title: WHAT IS MUSIC? FESTIVAL
+order: 6
+summary: Australia's premier annual touring showcase of local and international experimental music, produced, directed and curated by Robbie Avenaim (1994–2011) and Oren Ambarchi (1994–2005).
 heroImage: /images/what-is-music/50-bands-photo.png
+externalUrl: ''
+videos: []
 gallery:
   - /images/what-is-music/archival-poster.png
-videos: []
 ---
 
 The WHAT IS MUSIC? Festival was produced, directed and curated by its founders Robbie Avenaim (1994–2011) and Oren Ambarchi (1994–2005).
