@@ -1,5 +1,5 @@
 ---
-title: Avenaim performs with S.A.R.P.S and the Federation Bells
+title: Avenaim performs Live with S.A.R.P.S and the Federation Bells
 order: 3
 summary: A new collaborative work of human and robotic percussion with the iconic Federation  Bells.
 heroImage: /images/bells fed.jpg
