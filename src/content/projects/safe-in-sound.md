@@ -1,13 +1,15 @@
 ---
 title: Safe in Sound
 order: 4
-summary: An exploratory concert series for persons living with disability and their families and supporters, engaging carers in new methods of stimulation, entertainment and communication.
+summary: Safe in Sound brings sound art and exploratory music to people with disability, their families and carers — in their own homes and on festival stages across the country.
 heroImage: /images/Jess.jpg
 externalUrl: http://www.safeinsound.com.au/
 videos: []
 gallery: []
 ---
 
-Safe in Sound offers an exploratory concert series for persons living with disability and their families/supporters. It aims to engage families and carers to both supervise and take part in developing new methods of stimulation, entertainment and communication.
+Safe in Sound is an accessible experimental music and improvisation program bringing together emerging and established artists with mixed abilities for a collaborative creative development process and public performance outcomes across Australia.
+
+Safe in Sound brings sound art and exploratory music to people with disability, their families and carers — in their own homes and on festival stages across the country.
 
 Please visit [safeinsound.com.au](http://www.safeinsound.com.au/) for more information.
