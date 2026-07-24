@@ -1,5 +1,5 @@
 ---
-title: Album Release - Shine Caught Blue
+title: Coming soon - Shine Caught Blue
 order: 1
 summary: |-
   Label: HEAVY MACHINERY RECORDS
