@@ -76,15 +76,10 @@ own OAuth app; the shared setup above is simpler and is what's in place.)
 
 ## Deployment
 
-Pushing to `main` triggers a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and
-deploys it to Cloudflare Pages via Wrangler. The workflow is currently a no-op until it's turned on:
+The site is a **Cloudflare Worker** (Static Assets) named `robbieavenaim-com`, connected to this GitHub repo.
+**Every push to `main` auto-builds and deploys** (`npm run build` → `dist`, ~60–90s) — including content
+commits made through the CMS. There's nothing to run by hand.
 
-1. Add repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-2. Add a repo variable `DEPLOY_ENABLED` set to `true`.
-
-Until then, deploy manually from the repo root with:
-
-```sh
-npm run build
-npx wrangler pages deploy dist --project-name=robbieavenaim-com --branch=main
-```
+The `.github/workflows/deploy.yml` workflow is **dormant** — it's gated behind a `DEPLOY_ENABLED` repo
+variable that is unset, so it's skipped on every push. The Cloudflare Worker git-integration is the real (and
+only active) deploy path; don't be misled by GitHub Actions showing "skipped".
