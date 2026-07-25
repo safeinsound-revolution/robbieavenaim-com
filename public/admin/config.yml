@@ -25,7 +25,38 @@ collections:
         fields:
           - { label: Hero Image, name: heroImage, widget: image }
           - { label: Hero Image Caption, name: heroCaption, widget: string, required: false }
-          - { label: Intro Text, name: intro, widget: text }
+          - label: Show "Upcoming Events" section
+            name: showUpcomingEvents
+            widget: boolean
+            default: true
+            hint: 'Turn off to hide the section without deleting the events below. It also hides automatically whenever the list is empty.'
+          - label: Upcoming Events
+            name: upcomingEvents
+            widget: list
+            required: false
+            hint: 'Add a gig or show for each event. Leave the list empty to hide the section from the homepage.'
+            fields:
+              - label: Date
+                name: date
+                widget: string
+                hint: 'Free text, e.g. "Sat 12 Sep 2026" or "12–14 Sep 2026".'
+              - { label: Event Title, name: title, widget: string }
+              - label: Venue / Location
+                name: venue
+                widget: string
+                required: false
+                hint: 'e.g. "Sydney Opera House, Sydney".'
+              - { label: Details, name: details, widget: text, required: false }
+              - label: Link URL
+                name: link
+                widget: string
+                required: false
+                hint: 'Optional tickets or info link.'
+              - label: Link Label
+                name: linkLabel
+                widget: string
+                required: false
+                hint: 'Optional. Defaults to "More info".'
 
       - file: src/content/about.json
         label: About / Biography

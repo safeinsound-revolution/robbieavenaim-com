@@ -1,5 +1,6 @@
 {
   "heroImage": "/images/Screen Shot 2026-07-23 at 8.48.06 pm.png",
   "heroCaption": "Robbie Avenaim with SARPS",
-  "intro": "Robbie Avenaim - Australian drummer, sound / installation artist and curator with an international reputation for bold, sonic exploration — combining traditional and extended drumming technique with motorised, robotic and kinetic percussive instruments of his own design."
+  "showUpcomingEvents": true,
+  "upcomingEvents": []
 }
