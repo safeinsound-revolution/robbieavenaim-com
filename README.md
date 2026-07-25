@@ -1,6 +1,6 @@
 # robbieavenaim.com
 
-Rebuild of Robbie Avenaim's artist site — Astro (static), Sveltia CMS for editing, deployed to Cloudflare Pages from this repo.
+Rebuild of Robbie Avenaim's artist site — Astro (static), Sveltia CMS for editing, deployed to a Cloudflare Worker from this repo (see [Deployment](#deployment)).
 
 ## Structure
 
@@ -22,6 +22,15 @@ Rebuild of Robbie Avenaim's artist site — Astro (static), Sveltia CMS for edit
 ## Content editing
 
 Most content lives in `src/content/` as plain Markdown/YAML — edit directly, or use the CMS at `/admin/`.
+
+Two things that aren't obvious:
+
+- **Homepage project cards** are edited under **Projects**, not under the Homepage entry — the homepage grid
+  ("Project Highlights") is generated from the Projects collection, ordered by each project's *Display Order*.
+- **"Upcoming Events"** (Pages → Homepage) only appears on the site when the *Show "Upcoming Events" section*
+  switch is on **and** at least one event has been added. Emptying the list hides the whole section — that's
+  intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their
+  own; delete them when they're done.
 
 ## CMS setup
 
