@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 9
 title: SSL - Sonic Systems Laboratory
 credits: Dale Gorfinkel and Robbie Avenaim — prepared vibraphones
 label: Splitrec (2007)

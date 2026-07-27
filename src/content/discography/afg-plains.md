@@ -1,6 +1,6 @@
 ---
+order: 5
 title: AFG Plains
-order: 6
 credits: Robbie Avenaim — vibraphone, percussion. Cor Fuhler — two grand pianos. Dale Gorfinkel — vibraphone.
 label: Conundrom (released July 29, 2020)
 year: '2020'

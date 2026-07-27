@@ -1,5 +1,5 @@
 ---
-order: 9
+order: 8
 title: WOG / We Are Wog
 credits: Ray Ahn — bass, vocals. Robbie Avenaim — drums, vocals.
 label: '2007'
