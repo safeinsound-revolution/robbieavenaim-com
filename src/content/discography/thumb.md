@@ -1,6 +1,6 @@
 ---
+order: 12
 title: Thumb
-order: 13
 credits: Robbie Avenaim, Keith Rowe, Otomo Yoshihide, Sachiko M
 label: GROB 432 (2002)
 year: '2002'

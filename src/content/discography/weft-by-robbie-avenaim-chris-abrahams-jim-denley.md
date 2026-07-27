@@ -1,6 +1,6 @@
 ---
+order: 3
 title: Weft by Robbie Avenaim, Chris Abrahams, Jim Denley
-order: 4
 credits: |-
   Robbie Avenaim - prepared typewriter
   Chris Abrahams - synthesiser
