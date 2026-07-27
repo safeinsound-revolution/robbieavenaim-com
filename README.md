@@ -5,7 +5,10 @@ Rebuild of Robbie Avenaim's artist site — Astro (static), Sveltia CMS for edit
 ## Structure
 
 - `src/content/` — all editable content (bio, projects, discography, testimonials, grants) as Markdown/YAML, edited either by hand or through the CMS at `/admin/`.
-- `src/content.config.ts` — content collection schemas.
+- `src/content.config.ts` — content collection schemas. The `order` frontmatter field on Projects,
+  Discography and Testimonials is written by the CMS's drag-and-drop reordering (`reorder: true` in
+  `public/admin/config.yml`) — it isn't an editable field in the admin UI. It's optional in the schema, and
+  an entry without one sorts last, so a hand-added file won't break the build. Grants have no `order` at all.
 - `src/pages/` — routes.
 - `public/images/` — media, referenced by path from content files. New uploads through the CMS also land here.
 - `public/admin/` — Sveltia CMS (git-based admin UI).
@@ -23,10 +26,18 @@ Rebuild of Robbie Avenaim's artist site — Astro (static), Sveltia CMS for edit
 
 Most content lives in `src/content/` as plain Markdown/YAML — edit directly, or use the CMS at `/admin/`.
 
-Two things that aren't obvious:
+A few things that aren't obvious:
 
+- **Ordering is drag-and-drop** for Projects, Discography and Testimonials — they display in the order they
+  appear in the CMS list. Open the collection, click **Reorder**, drag items (or use the up/down arrows), then
+  click **Done** — the CMS renumbers every affected entry itself and saves them in one commit. There is no
+  order number to type: new entries are added to the **bottom** of the list, so add first, then drag into place.
+- **Grants & Awards orders itself.** There's no ordering to maintain: each entry lands in the page section
+  named by its *Group* field, and each section lists newest year first. Multi-year entries ("2002, 2003, 2005")
+  sort on the first year shown. Filenames are generated as `<group>-<year>-<description>`, but nothing reads
+  them — the *Group* field alone decides which section an entry appears in.
 - **Homepage project cards** are edited under **Projects**, not under the Homepage entry — the homepage grid
-  ("Project Highlights") is generated from the Projects collection, ordered by each project's *Display Order*.
+  ("Project Highlights") is generated from the Projects collection, in the same order as the Projects list.
 - **"Upcoming Events"** (Pages → Homepage) only appears on the site when the *Show "Upcoming Events" section*
   switch is on **and** at least one event has been added. Emptying the list hides the whole section — that's
   intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their

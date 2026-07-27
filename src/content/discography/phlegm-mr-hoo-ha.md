@@ -1,6 +1,6 @@
 ---
 title: 'PHLEGM: Mr Hoo-Ha Visits the Non-Stop Pissing Circus'
-order: 17
+order: 18
 credits: 'Format: CD, Album. Australia.'
 label: Dr Jim's Records – Dr Jim 11 (1994)
 year: '1994'

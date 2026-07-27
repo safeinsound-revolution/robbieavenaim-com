@@ -82,9 +82,13 @@ collections:
     folder: src/content/projects
     create: true
     slug: "{{slug}}"
+    # Drag-and-drop ordering: use the "Reorder" button in the Projects list.
+    # New projects are added to the bottom; drag them where you want them.
+    reorder: true
+    description: 'Order on the site = order in this list. Click "Reorder" to drag items up or down.'
+    summary: "{{title}}"
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Display Order, name: order, widget: number }
       - { label: Summary, name: summary, widget: text }
       - { label: Hero Image, name: heroImage, widget: image, required: false }
       - { label: External Website URL, name: externalUrl, widget: string, required: false }
@@ -116,9 +120,11 @@ collections:
     folder: src/content/discography
     create: true
     slug: "{{slug}}"
+    reorder: true
+    description: 'Order on the site = order in this list. Click "Reorder" to drag releases up or down.'
+    summary: "{{title}}"
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Display Order, name: order, widget: number }
       - { label: Credits, name: credits, widget: text }
       - { label: Label / Catalogue, name: label, widget: string, required: false }
       - { label: Year, name: year, widget: string, required: false }
@@ -137,8 +143,10 @@ collections:
     folder: src/content/testimonials
     create: true
     slug: "{{slug}}"
+    reorder: true
+    description: 'Order on the site = order in this list. Click "Reorder" to drag quotes up or down.'
+    summary: "{{author}}"
     fields:
-      - { label: Display Order, name: order, widget: number }
       - { label: Quote, name: quote, widget: text }
       - { label: Author / Attribution, name: author, widget: string }
 
@@ -146,14 +154,24 @@ collections:
     label: Grants & Awards
     folder: src/content/grants
     create: true
-    slug: "{{slug}}"
+    # No ordering to maintain here: the page puts each entry in the section named
+    # by its Group, and sorts each section by Year, newest first. Just add and go.
+    slug: "{{group}}-{{year}}-{{description | truncate(40)}}"
+    description: "Nothing to order here — each entry goes into the section chosen in its Group field, newest year first."
+    summary: "{{year}} — {{description}}"
+    sortable_fields:
+      fields: [year, group, description]
+      default: { field: year, direction: descending }
     fields:
-      - { label: Display Order, name: order, widget: number }
-      - { label: Year, name: year, widget: string }
+      - label: Year
+        name: year
+        widget: string
+        hint: 'Usually one year, e.g. "2026". A multi-year grant can list them all ("2002, 2003, 2005") — it''s sorted by the first year shown.'
       - { label: Description, name: description, widget: text }
       - label: Group
         name: group
         widget: select
+        hint: "Which section of the Grants & Awards page this appears in."
         options:
           - { label: "Grants awarded to the artist", value: artist }
           - { label: "WHAT IS MUSIC? Festival grants", value: festival }

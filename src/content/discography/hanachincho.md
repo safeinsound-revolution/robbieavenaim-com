@@ -1,6 +1,6 @@
 ---
 title: Hanachincho
-order: 11
+order: 12
 credits: Robbie Avenaim — drums, vocals, ASR10, noise, percussion. First solo album.
 label: AA001 (1997)
 year: '1997'

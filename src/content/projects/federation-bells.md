@@ -1,6 +1,6 @@
 ---
 title: Avenaim performs Live with S.A.R.P.S and the Federation Bells
-order: 3
+order: 4
 summary: A new collaborative work of human and robotic percussion with the iconic Federation  Bells.
 heroImage: /images/bells fed.jpg
 externalUrl: https://nowornever.melbourne.vic.gov.au/event/shine-caught-blue

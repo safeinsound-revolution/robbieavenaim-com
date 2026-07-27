@@ -3,10 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 const grants = await getCollection("grants");
+
+// Year is free text, and a multi-year grant lists them all ("2002, 2003, 2005").
+// Sort on the first year mentioned, newest first; ties fall back to the filename
+// so the order stays stable between builds.
+const startYear = (year: string) => Number(year.match(/\d{4}/)?.[0] ?? 0);
+
 const byGroup = (group: string) =>
   grants
     .filter((g) => g.data.group === group)
-    .sort((a, b) => a.data.order - b.data.order);
+    .sort(
+      (a, b) =>
+        startYear(b.data.year) - startYear(a.data.year) || a.id.localeCompare(b.id)
+    );
 
 const sections = [
   { key: "artist", title: "Grants awarded to the artist" },

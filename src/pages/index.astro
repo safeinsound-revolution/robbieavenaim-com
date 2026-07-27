@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import home from "../content/home.json";
 
-const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects")).sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity));
 
 // The Upcoming Events section only renders when the CMS toggle is on *and*
 // at least one event has been added — so it disappears on its own when empty.

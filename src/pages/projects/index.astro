@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects")).sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity));
 ---
 <Layout title="Projects — Robbie Avenaim">
   <section class="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">

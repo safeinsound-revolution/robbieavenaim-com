@@ -1,6 +1,6 @@
 ---
 title: About SARPS - Semi-Automated Robotic Percussion System
-order: 4
+order: 7
 summary: A robotic midi device used in performance that, when programmed, strikes drums much like a synthesizer — a logical extension of Nancarrow and Xenakis's efforts to introduce randomised, algorithmic elements into music.
 heroImage: /images/sarps/sarps-banner.jpg
 externalUrl: ''

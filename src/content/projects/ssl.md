@@ -1,6 +1,6 @@
 ---
 title: SSL - Sonic Systems Laboratory
-order: 3
+order: 5
 summary: Dale Gorfinkel and Robbie Avenaim redefine the vibraphone — micro-tonal tuning, additional motors, bows, homemade electronic sticks and battery-operated vibrating objects.
 heroImage: /images/ssl/cover.jpg
 externalUrl: http://dalegorfinkel.com
