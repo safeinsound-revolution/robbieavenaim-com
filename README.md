@@ -43,6 +43,27 @@ A few things that aren't obvious:
   intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their
   own; delete them when they're done.
 
+## Publishing CMS edits
+
+**Saving in the CMS no longer rebuilds the site.** It used to: Sveltia commits on every Save, Cloudflare
+builds every commit, and it builds them one at a time — so editing eight entries in a row queued eight full
+builds, each waiting on the last. With `skip_ci: true` under `backend:` in `public/admin/config.yml`, Sveltia
+marks each commit so Cloudflare skips the build for it.
+
+Publishing is now a deliberate step. Either way works:
+
+- **Save and Publish** — the little arrow beside the **Save** button in an entry. Use it on the last edit of a
+  batch.
+- **Publish Changes** — the button in the CMS header. Ships everything saved but unpublished so far.
+
+Deletions are the exception: Sveltia always builds those, so deleting an entry updates the site by itself.
+
+**The failure mode to expect:** *"I edited it and saved, but the site didn't change."* That almost always
+means saved-but-unpublished commits are sitting in the repo. Click **Publish Changes** in the CMS. From a
+terminal you can see them with `git log origin/main --oneline -10` (the CMS's own commits are titled
+`Update <Collection> "<slug>"`), and any ordinary push — even an unrelated one — will ship everything queued
+behind it.
+
 ## CMS setup
 
 The admin UI at `/admin/` is [Sveltia CMS](https://github.com/sveltia/sveltia-cms) — it edits the files in
@@ -97,8 +118,11 @@ own OAuth app; the shared setup above is simpler and is what's in place.)
 ## Deployment
 
 The site is a **Cloudflare Worker** (Static Assets) named `robbieavenaim-com`, connected to this GitHub repo.
-**Every push to `main` auto-builds and deploys** (`npm run build` → `dist`, ~60–90s) — including content
-commits made through the CMS. There's nothing to run by hand.
+**A normal push to `main` auto-builds and deploys** (`npm run build` → `dist`, ~60–90s). There's nothing to
+run by hand.
+
+The exception is commits made by the CMS, which are marked to skip the build — see
+[Publishing CMS edits](#publishing-cms-edits) below.
 
 The `.github/workflows/deploy.yml` workflow is **dormant** — it's gated behind a `DEPLOY_ENABLED` repo
 variable that is unset, so it's skipped on every push. The Cloudflare Worker git-integration is the real (and

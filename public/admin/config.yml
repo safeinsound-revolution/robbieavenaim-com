@@ -8,6 +8,15 @@ backend:
   # you can comment out base_url.
   base_url: https://sveltia-cms-auth.robbie-avenaim.workers.dev
   auth_endpoint: auth
+  # Don't rebuild the site on every single save. Sveltia prefixes each commit
+  # with "[skip ci]", which this site's Cloudflare Workers build honours by
+  # skipping that build, so a run of ten edits no longer queues ten builds
+  # behind each other. To publish: use the arrow beside Save → "Save and
+  # Publish" on the last edit, or the "Publish Changes" button in the header.
+  # Nothing reaches the live site until one of those is used. (Deletions always
+  # build — Sveltia deliberately omits the flag for those.)
+  # See README "Publishing CMS edits".
+  skip_ci: true
 
 media_folder: "public/images"
 public_folder: "/images"
