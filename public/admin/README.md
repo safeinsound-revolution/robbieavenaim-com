@@ -1,8 +1,12 @@
 # Setting up the CMS
 
 The admin UI at `/admin/` is [Sveltia CMS](https://github.com/sveltia/sveltia-cms) — it edits the files in
-`src/content/` directly and commits to GitHub (`safeinsound-revolution/robbieavenaim-com`), which redeploys
-the site. Anyone who edits needs **write access** to that repo (add them as a collaborator).
+`src/content/` directly and commits to GitHub (`safeinsound-revolution/robbieavenaim-com`). Anyone who edits
+needs **write access** to that repo (add them as a collaborator).
+
+Saving does **not** redeploy the site any more — publishing is a separate, deliberate step ("Save and
+Publish", or the "Publish Changes" button in the header). See the repo root **`README.md` → "Publishing CMS
+edits"**.
 
 You can sign in two ways — full details and the manual checklist are in the repo root **`README.md`
 → "CMS setup"**. In short:
