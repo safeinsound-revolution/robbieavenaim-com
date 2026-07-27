@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 5
 title: FAN
 credits: Cor Fuhler — piano, prepared. Robbie Avenaim — drums, percussion, small mechanical devices. Toshimaru Nakamura — no-input mixing board.
 label: Sound Out Recordings (2012)
