@@ -1,6 +1,6 @@
 ---
+order: 11
 title: Rhythmic Movement Disorder
-order: 10
 credits: Robbie Avenaim — drums, percussion, junk, bowed materials
 label: Room40 – RM421 (2008)
 year: '2008'
