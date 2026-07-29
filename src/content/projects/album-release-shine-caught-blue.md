@@ -1,6 +1,6 @@
 ---
-title: Coming soon - Shine Caught Blue
 order: 1
+title: Latest release - Shine Caught Blue
 summary: |-
   Label: HEAVY MACHINERY RECORDS
   ‘Shine Caught Blue’ is the third solo album from Australian experimental percussionist Robbie Avenaim.
