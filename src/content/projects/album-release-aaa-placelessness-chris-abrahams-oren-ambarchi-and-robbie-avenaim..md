@@ -1,6 +1,6 @@
 ---
-title: Album Release - AAA - PLACELESSNESS - Chris Abrahams, Oren Ambarchi and  Robbie Avenaim.
 order: 2
+title: LP release  - AAA - PLACELESSNESS - Chris Abrahams, Oren Ambarchi and  Robbie Avenaim.
 summary: AAA - Placelessness, the debut collaboration album between Australian trio and experimental force, Chris Abrahams, Oren Ambarchi and Robbie Avenaim, is one of those records. An album that boasts the kind of multi-coloured textures and vivid sketches that become purer with each listen.
 heroImage: /images/aaa.jpg
 externalUrl: ''
