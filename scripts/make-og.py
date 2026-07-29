@@ -27,6 +27,7 @@ TAGLINE = "Australian drummer and sound artist working with robotic and kinetic 
 DOMAIN = "robbieavenaim.com"
 
 PANEL_W, PANEL_H = 560, 630
+CROP_CENTRE = 0.50  # horizontal point of the hero frame to centre the panel on
 
 
 def photo_panel() -> str:
@@ -34,7 +35,9 @@ def photo_panel() -> str:
     im = Image.open(SOURCE)
     w, h = im.size
     crop_w = int(h * PANEL_W / PANEL_H)
-    left = min(int(w * 0.42), w - crop_w)  # keeps Robbie's face inside the panel
+    # Centred on the frame, so Robbie sits in the middle of the panel rather than
+    # against its edge. Nudge CROP_CENTRE if the hero photo is ever replaced.
+    left = max(0, min(int(w * CROP_CENTRE) - crop_w // 2, w - crop_w))
     panel = im.crop((left, 0, left + crop_w, h)).resize((PANEL_W * 2, PANEL_H * 2), Image.LANCZOS)
     with tempfile.NamedTemporaryFile(suffix=".jpg") as tmp:
         panel.save(tmp.name, quality=92)
