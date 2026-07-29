@@ -6,9 +6,14 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Robbie Avenaim — Australian drummer, sound and installation artist working with robotic and kinetic percussion." } = Astro.props;
+const { title, description = "Robbie Avenaim — Australian drummer, sound and installation artist working with robotic and kinetic percussion.", image = "/og.png" } = Astro.props;
+
+// Scrapers (Facebook, portfolio card builders) need absolute URLs, not site-relative ones.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -16,10 +21,22 @@ const { title, description = "Robbie Avenaim — Australian drummer, sound and i
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
     <meta name="description" content={description} />
+    <meta property="og:site_name" content="Robbie Avenaim" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Robbie Avenaim at his robotic percussion kit" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <title>{title}</title>
   </head>
   <body class="bg-ink text-paper antialiased">
