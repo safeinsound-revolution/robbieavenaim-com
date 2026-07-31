@@ -7,6 +7,6 @@ year: '2002'
 image: /images/discography/honey-pie.png
 links:
   - label: Label info
-    url: http://www.churchofgrob.com/Churchofgrob/CATALOG/Grob648/index.html
+    url: https://www.discogs.com/release/1244517-Keith-Rowe-Oren-Ambarchi-Robbie-Avenaim-Honey-Pie
 soldOut: false
 ---
