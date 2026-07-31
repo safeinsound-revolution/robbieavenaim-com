@@ -1,7 +1,16 @@
 ---
-title: Avenaim performs Live with S.A.R.P.S and the Federation Bells
 order: 4
-summary: A new collaborative work of human and robotic percussion with the iconic Federation  Bells.
+title: 21st August 2026  Now Or Never festival - Live Premiere
+summary: |-
+  'Shine Caught Blue' Live Premiere
+  Friday 21 August 
+  Time: 8 – 9pm
+  Where: Federation Bells, 100 Batman Ave, Melbourne Australia
+  FREE event
+
+  Presented as an outdoor installation and performance event with Melbourne’s iconic public sound sculpture, this is a complex exchange between human gesture and robotic precision.
+
+  Avenaim will be joined by longtime collaborators and experimental musicians Jim Denley(flute) and James Rushford (portative organ).
 heroImage: /images/bells fed.jpg
 externalUrl: https://nowornever.melbourne.vic.gov.au/event/shine-caught-blue
 videos: []
