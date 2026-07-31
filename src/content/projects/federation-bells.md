@@ -1,6 +1,6 @@
 ---
 order: 4
-title: 21st August 2026  Now Or Never festival - Live Premiere
+title: Now Or Never festival - Album Launch  / Live Premiere
 summary: |-
   'Shine Caught Blue' Live Premiere
   Friday 21 August 
