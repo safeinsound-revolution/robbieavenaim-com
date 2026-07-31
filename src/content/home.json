@@ -2,5 +2,14 @@
   "heroImage": "/images/Screen Shot 2026-07-23 at 8.48.06 pm.png",
   "heroCaption": "Robbie Avenaim with SARPS",
   "showUpcomingEvents": true,
-  "upcomingEvents": []
+  "upcomingEvents": [
+    {
+      "date": "21st August 2026",
+      "title": "Now Or Never festival - Live Premiere",
+      "venue": "Federation Bells, 100 Batman Ave, Melbourne Australia",
+      "details": "'Shine Caught Blue' Live Premiere\nFriday 21 August \n8 – 9pm\nFREE\nPresented as an outdoor installation and performance event with Melbourne’s iconic public sound sculpture, this is a complex exchange between human gesture and robotic precision.\n\nAvenaim will be joined by longtime collaborators and experimental musicians Jim Denley(flute) and James Rushford (portative organ).",
+      "link": "https://nowornever.melbourne.vic.gov.au/event/shine-caught-blue",
+      "linkLabel": "https://bandcamp.com/private/GGA89V3C"
+    }
+  ]
 }
