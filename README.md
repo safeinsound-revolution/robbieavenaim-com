@@ -45,24 +45,34 @@ A few things that aren't obvious:
 
 ## Publishing CMS edits
 
-**Saving in the CMS no longer rebuilds the site.** It used to: Sveltia commits on every Save, Cloudflare
-builds every commit, and it builds them one at a time — so editing eight entries in a row queued eight full
-builds, each waiting on the last. With `skip_ci: true` under `backend:` in `public/admin/config.yml`, Sveltia
-marks each commit so Cloudflare skips the build for it.
+**Saving in the CMS publishes.** There is no separate publish step: Save, wait ~60–90s for the Cloudflare
+build, and the change is live. Editing several entries in a row queues one build each and they run one at a
+time, so a long session takes a while to fully drain — the site catches up on its own.
 
-Publishing is now a deliberate step. Either way works:
+It briefly worked the other way. `skip_ci: true` under `backend:` made Sveltia mark each commit so Cloudflare
+skipped the build, turning publishing into a deliberate step. That was removed on 1 Aug 2026 after it cost
+Robbie an evening's work: he added a Now or Never event four times over fifteen minutes, saw nothing appear,
+and switched the section off assuming it was broken. Nothing was broken — every save had committed fine and
+none of them had deployed.
 
-- **Save and Publish** — the little arrow beside the **Save** button in an entry. Use it on the last edit of a
-  batch.
-- **Publish Changes** — the button in the CMS header. Ships everything saved but unpublished so far.
+Do not re-add the flag without also fixing what made it unusable:
 
-Deletions are the exception: Sveltia always builds those, so deleting an entry updates the site by itself.
+- **The header "Publish Changes" button does nothing here.** Sveltia's GitHub backend publishes by POSTing a
+  `repository_dispatch` (`event_type: sveltia-cms-publish`). Nothing in this repo listens for it — `deploy.yml`
+  is triggered by `push`/`workflow_dispatch` and is dormant anyway — and Cloudflare Workers builds on push
+  only. The click reports success and deploys nothing. Only **Save and Publish** (the arrow beside **Save**)
+  ever worked, because it commits without the marker, which is a real push.
+- **That button is hidden most of the time.** Sveltia shows it only when the *single most recent* commit starts
+  with the skip marker (`isLastCommitPublished` in the bundle). Any dev push, or any delete, hid it while a
+  stack of unpublished saves sat behind it.
+- **Deletions always deployed** — Sveltia omits the marker for those — so some changes went live immediately
+  and others never did, with nothing on screen to explain the difference.
 
-**The failure mode to expect:** *"I edited it and saved, but the site didn't change."* That almost always
-means saved-but-unpublished commits are sitting in the repo. Click **Publish Changes** in the CMS. From a
-terminal you can see them with `git log origin/main --oneline -10` (the CMS's own commits are titled
-`Update <Collection> "<slug>"`), and any ordinary push — even an unrelated one — will ship everything queued
-behind it.
+If build queuing becomes a real problem, add a workflow listening for that dispatch event (pushing an empty
+commit is enough to trigger Cloudflare) and re-add the flag *then*.
+
+To check what's deployed from a terminal: `git log origin/main --oneline -10`. CMS commits are titled
+`Update <Collection> "<slug>"`.
 
 ## CMS setup
 

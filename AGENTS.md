@@ -30,8 +30,11 @@ deploys in ~60–90s. It is **not** a Pages project, and `.github/workflows/depl
 anywhere in the message, not just as a prefix, so a commit that merely *mentions* one silently never deploys
 — no error, no check run. Write `skip_ci` or "the skip-CI flag" when a message has to discuss it.
 
-CMS commits carry that marker on purpose (`skip_ci: true` in `public/admin/config.yml`), so saving in
-`/admin/` no longer deploys. See README → "Publishing CMS edits".
+CMS saves deploy like any other commit. `skip_ci: true` was removed from `public/admin/config.yml` on
+1 Aug 2026 — it made every CMS save silently non-deploying, and the publish step meant to compensate was
+unusable (the header "Publish Changes" button fires a `repository_dispatch` nothing listens for, and it is
+hidden unless the very last commit carries the marker). Don't re-add it without a listener for that event.
+See README → "Publishing CMS edits".
 
 ## Content schemas: a blank CMS box arrives as `''`, not as nothing
 
