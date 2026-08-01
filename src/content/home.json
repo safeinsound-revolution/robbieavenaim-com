@@ -1,7 +1,7 @@
 {
   "heroImage": "/images/Screen Shot 2026-07-23 at 8.48.06 pm.png",
   "heroCaption": "Robbie Avenaim with SARPS",
-  "showUpcomingEvents": false,
+  "showUpcomingEvents": true,
   "upcomingEvents": [
     {
       "date": "21st August 2026",
