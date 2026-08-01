@@ -41,7 +41,9 @@ A few things that aren't obvious:
 - **"Upcoming Events"** (Pages → Homepage) only appears on the site when the *Show "Upcoming Events" section*
   switch is on **and** at least one event has been added. Emptying the list hides the whole section — that's
   intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their
-  own; delete them when they're done.
+  own; delete them when they're done. **Details preserves line breaks** as typed (the field is rendered
+  `whitespace-pre-line`), so an event can be laid out like a poster. **Link Label** is the wording on the
+  button and falls back to "More info" when left blank — it is not the URL; that goes in **Link URL**.
 
 ## Publishing CMS edits
 
@@ -131,9 +133,21 @@ The site is a **Cloudflare Worker** (Static Assets) named `robbieavenaim-com`, c
 **A normal push to `main` auto-builds and deploys** (`npm run build` → `dist`, ~60–90s). There's nothing to
 run by hand.
 
-The exception is commits made by the CMS, which are marked to skip the build — see
-[Publishing CMS edits](#publishing-cms-edits) below.
+CMS saves are ordinary commits and build like any other — see
+[Publishing CMS edits](#publishing-cms-edits). (They were marked to skip the build until 1 Aug 2026.)
 
 The `.github/workflows/deploy.yml` workflow is **dormant** — it's gated behind a `DEPLOY_ENABLED` repo
 variable that is unset, so it's skipped on every push. The Cloudflare Worker git-integration is the real (and
 only active) deploy path; don't be misled by GitHub Actions showing "skipped".
+
+**Social sharing / SEO:** every page emits Open Graph + Twitter-card tags from `src/layouts/Layout.astro`,
+pointing at `public/og.png` (1200×630). `og:url` and the canonical link are built per-page from `Astro.site`,
+because link scrapers don't resolve relative URLs. `og:image:width`/`height` are declared explicitly — Facebook
+needs them to render a card on first scrape instead of deferring it.
+
+To regenerate the card, run `python3 scripts/make-og.py` from the repo root (needs Pillow and Google Chrome).
+It crops the hero photo, builds a branded HTML card in the site's own palette, and screenshots it with
+headless Chrome at 1200×630. Text, colours and the crop centre are constants at the top of that file.
+
+`@astrojs/sitemap` builds `sitemap-index.xml` (→ `sitemap-0.xml`) on every build, and `public/robots.txt`
+points crawlers at it. Submitting it in Google Search Console is still outstanding (Robbie's browser task).
