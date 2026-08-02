@@ -1,8 +1,8 @@
 ---
-title: SAFE IN SOUND
 order: 6
+title: SAFE IN SOUND
 summary: Safe in Sound brings sound art and exploratory music to people with disability, their families and carers — in their own homes and on festival stages across the country.
-heroImage: /images/Jess.jpg
+heroImage: /images/matt inhome pic.jpg
 externalUrl: http://www.safeinsound.com.au/
 videos: []
 gallery: []
