@@ -3,10 +3,19 @@ const links = [
   { href: "/about/", label: "Biography" },
   { href: "/projects/", label: "Projects" },
   { href: "/discography/", label: "Discography" },
-  { href: "/grants/", label: "Grants & Awards" },
-  { href: "/testimonials/", label: "Testimonials" },
+  {
+    label: "Recognition",
+    children: [
+      { href: "/grants/", label: "Grants & Awards" },
+      { href: "/testimonials/", label: "Testimonials" },
+    ],
+  },
 ];
 const path = Astro.url.pathname;
+const isActive = (link: (typeof links)[number]) =>
+  link.children
+    ? link.children.some((c) => path.startsWith(c.href))
+    : path.startsWith(link.href!);
 ---
 <header class="sticky top-0 z-50 border-b border-line/80 bg-ink/90 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -18,37 +27,104 @@ const path = Astro.url.pathname;
       class="text-paper sm:hidden"
       aria-label="Toggle menu"
       aria-expanded="false"
-      aria-controls="nav-links"
+      aria-controls="nav-links-mobile"
     >
       <span class="block h-px w-6 bg-paper"></span>
       <span class="mt-1.5 block h-px w-6 bg-paper"></span>
     </button>
-    <nav id="nav-links" class="hidden gap-6 sm:flex">
-      {links.map((l) => (
+    <nav id="nav-links" class="hidden items-center gap-6 sm:flex">
+      {links.map((l) =>
+        l.children ? (
+          <div class="relative" data-dropdown>
+            <button
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              class:list={[
+                "flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.1em] transition-colors hover:text-accent",
+                isActive(l) ? "text-accent" : "text-muted",
+              ]}
+              data-dropdown-toggle
+            >
+              {l.label}
+              <svg
+                class="h-2.5 w-2.5 transition-transform"
+                viewBox="0 0 10 6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                aria-hidden="true"
+              >
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </button>
+            <div
+              class="absolute right-0 top-full hidden min-w-[13rem] border border-line bg-ink py-2"
+              data-dropdown-menu
+            >
+              {l.children.map((c) => (
+                <a
+                  href={c.href}
+                  class:list={[
+                    "block px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] transition-colors hover:text-accent",
+                    path.startsWith(c.href) ? "text-accent" : "text-muted",
+                  ]}
+                >
+                  {c.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={l.href}
+            class:list={[
+              "font-mono text-xs uppercase tracking-[0.1em] transition-colors hover:text-accent",
+              isActive(l) ? "text-accent" : "text-muted",
+            ]}
+          >
+            {l.label}
+          </a>
+        )
+      )}
+    </nav>
+  </div>
+  <nav id="nav-links-mobile" class="hidden flex-col gap-4 border-t border-line px-5 py-4 sm:hidden">
+    {links.map((l) =>
+      l.children ? (
+        <div class="flex flex-col gap-3">
+          <span
+            class:list={[
+              "font-mono text-xs uppercase tracking-[0.1em]",
+              isActive(l) ? "text-accent" : "text-paper",
+            ]}
+          >
+            {l.label}
+          </span>
+          {l.children.map((c) => (
+            <a
+              href={c.href}
+              class:list={[
+                "pl-4 font-mono text-xs uppercase tracking-[0.1em]",
+                path.startsWith(c.href) ? "text-accent" : "text-muted",
+              ]}
+            >
+              {c.label}
+            </a>
+          ))}
+        </div>
+      ) : (
         <a
           href={l.href}
           class:list={[
-            "font-mono text-xs uppercase tracking-[0.1em] transition-colors hover:text-accent",
-            path.startsWith(l.href) ? "text-accent" : "text-muted",
+            "font-mono text-xs uppercase tracking-[0.1em]",
+            isActive(l) ? "text-accent" : "text-muted",
           ]}
         >
           {l.label}
         </a>
-      ))}
-    </nav>
-  </div>
-  <nav id="nav-links-mobile" class="hidden flex-col gap-4 border-t border-line px-5 py-4 sm:hidden">
-    {links.map((l) => (
-      <a
-        href={l.href}
-        class:list={[
-          "font-mono text-xs uppercase tracking-[0.1em]",
-          path.startsWith(l.href) ? "text-accent" : "text-muted",
-        ]}
-      >
-        {l.label}
-      </a>
-    ))}
+      )
+    )}
   </nav>
 </header>
 
@@ -59,5 +135,36 @@ const path = Astro.url.pathname;
     const isOpen = mobile?.classList.toggle("flex");
     mobile?.classList.toggle("hidden");
     toggle.setAttribute("aria-expanded", String(!!isOpen));
+  });
+
+  document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
+    const button = dropdown.querySelector<HTMLButtonElement>("[data-dropdown-toggle]");
+    const menu = dropdown.querySelector<HTMLElement>("[data-dropdown-menu]");
+    if (!button || !menu) return;
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle("hidden", !open);
+      button.setAttribute("aria-expanded", String(open));
+      button.querySelector("svg")?.classList.toggle("rotate-180", open);
+    };
+
+    button.addEventListener("click", () =>
+      setOpen(button.getAttribute("aria-expanded") !== "true")
+    );
+    /* Hover-to-open only where hovering is real — on a touchscreen the
+     * synthetic mouseenter would open the menu and the tap then shut it. */
+    if (window.matchMedia("(hover: hover)").matches) {
+      dropdown.addEventListener("mouseenter", () => setOpen(true));
+      dropdown.addEventListener("mouseleave", () => setOpen(false));
+    }
+    dropdown.addEventListener("focusout", (event) => {
+      if (!dropdown.contains(event.relatedTarget as Node)) setOpen(false);
+    });
+    dropdown.addEventListener("keydown", (event) => {
+      if ((event as KeyboardEvent).key === "Escape") {
+        setOpen(false);
+        button.focus();
+      }
+    });
   });
 </script>
