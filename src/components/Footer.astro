@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
     <p class="font-mono text-xs uppercase tracking-[0.1em] text-muted">
       &copy; {year} Robbie Avenaim
     </p>
-    <div class="flex gap-5">
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
       {contact.instagram && (
         <a href={contact.instagram} target="_blank" rel="noopener noreferrer" class="font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-accent">
           Instagram
@@ -22,17 +22,32 @@ const year = new Date().getFullYear();
       <a href="/privacy-policy/" class="font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-accent">
         Privacy
       </a>
-      {/* Mark only, no visible label, so the link's accessible name has to come
-          from the hidden text; the SVG stays aria-hidden rather than competing
-          with it. `text-xs` is here to set the em the mark sizes itself from. */}
+      {/* One span doing two jobs: it is the tooltip AND the link's accessible
+          name, so the two can never say different things. It is hidden with
+          `opacity` rather than `hidden`/`invisible`, both of which would take it
+          out of the accessibility tree and leave the link announced as a bare
+          "link". The SVG stays aria-hidden so it doesn't compete. Deliberately
+          NOT a `title` attribute: that can't be styled, waits about a second,
+          never appears on keyboard focus, and would stack a second native
+          tooltip on top of this one.
+
+          `text-xs` here is what sets the em the mark sizes itself from. */}
       <a
         href="https://jderrick.app"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex items-center text-xs text-muted transition-colors hover:text-accent"
+        class="group relative flex items-center text-xs text-muted transition-colors hover:text-accent focus-visible:text-accent motion-reduce:transition-none"
       >
         <JdMark />
-        <span class="sr-only">Made by Joseph Derrick</span>
+        {/* Anchored to the credit's right edge and opening leftwards, so it
+            can't push the footer wider or scroll the page sideways on a phone.
+            pointer-events-none keeps it from eating the hover that summoned
+            it. */}
+        <span
+          class="pointer-events-none absolute bottom-[calc(100%_+_0.5rem)] right-0 z-10 whitespace-nowrap rounded-sm bg-line px-2 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-paper opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        >
+          Site by Joseph Derrick
+        </span>
       </a>
     </div>
   </div>

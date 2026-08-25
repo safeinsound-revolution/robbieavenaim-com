@@ -8,6 +8,13 @@
  *  mark takes the colour of the link it sits in — including on hover — and
  *  there is no second request for a 4 KB file.
  */
+/*  Sized HERE rather than by the caller, and with all four of `h-[1.9em]`,
+ *  `w-auto`, `aspect-[2144/2016]` and `flex-none`: inside a flex row `w-auto`
+ *  on an inline SVG can compute to zero without the aspect ratio, and a
+ *  framework that scopes styles per component would not match a size rule
+ *  written in the parent at all. Height in `em` so the mark tracks whatever
+ *  font-size it sits in.
+ */
 interface Props {
   class?: string;
 }
@@ -15,7 +22,7 @@ const { class: className } = Astro.props;
 ---
 
 <svg
-  class:list={["block h-[1.9em] w-auto flex-none", className]}
+  class:list={["block h-[1.9em] w-auto flex-none aspect-[2144/2016]", className]}
   viewBox="0 0 2144 2016"
   xmlns="http://www.w3.org/2000/svg"
   aria-hidden="true"
