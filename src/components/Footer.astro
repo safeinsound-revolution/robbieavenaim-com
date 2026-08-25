@@ -31,12 +31,17 @@ const year = new Date().getFullYear();
           never appears on keyboard focus, and would stack a second native
           tooltip on top of this one.
 
-          `text-xs` here is what sets the em the mark sizes itself from. */}
+          `text-xs` here is what sets the em the mark sizes itself from, and
+          `ml-auto` keeps the credit hard right. That matters on a phone, where
+          the footer stacks and this row stretches the full width — without it
+          the mark trails the word "Privacy" mid-line. On a wider screen the row
+          is sized to its contents, so there is no free space for the auto
+          margin to eat and it quietly does nothing. */}
       <a
         href="https://jderrick.app"
         target="_blank"
         rel="noopener noreferrer"
-        class="group relative flex items-center text-xs text-muted transition-colors hover:text-accent focus-visible:text-accent motion-reduce:transition-none"
+        class="group relative ml-auto flex items-center text-xs text-muted transition-colors hover:text-accent focus-visible:text-accent motion-reduce:transition-none"
       >
         <JdMark />
         {/* Anchored to the credit's right edge and opening leftwards, so it
