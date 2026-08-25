@@ -1,5 +1,6 @@
 ---
 import contact from "../content/contact.json";
+import JdMark from "./JdMark.astro";
 const year = new Date().getFullYear();
 ---
 <footer class="border-t border-line">
@@ -20,6 +21,18 @@ const year = new Date().getFullYear();
       )}
       <a href="/privacy-policy/" class="font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-accent">
         Privacy
+      </a>
+      {/* Mark only, no visible label, so the link's accessible name has to come
+          from the hidden text; the SVG stays aria-hidden rather than competing
+          with it. `text-xs` is here to set the em the mark sizes itself from. */}
+      <a
+        href="https://jderrick.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center text-xs text-muted transition-colors hover:text-accent"
+      >
+        <JdMark />
+        <span class="sr-only">Made by Joseph Derrick</span>
       </a>
     </div>
   </div>
