@@ -38,6 +38,9 @@ A few things that aren't obvious:
   them — the *Group* field alone decides which section an entry appears in.
 - **Homepage project cards** are edited under **Projects**, not under the Homepage entry — the homepage grid
   ("Project Highlights") is generated from the Projects collection, in the same order as the Projects list.
+- **The menu isn't editable in the CMS.** Grants & Awards and Testimonials sit under a **Recognition**
+  dropdown; that grouping lives in `src/components/Nav.astro`. Note the pages' addresses did not change when
+  they moved under it — they are still `/grants/` and `/testimonials/`, so older links still work.
 - **"Upcoming Events"** (Pages → Homepage) only appears on the site when the *Show "Upcoming Events" section*
   switch is on **and** at least one event has been added. Emptying the list hides the whole section — that's
   intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their
