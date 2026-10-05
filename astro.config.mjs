@@ -5,12 +5,14 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
+import imageDimensions from './src/integrations/image-dimensions.mjs';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://robbieavenaim.com',
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss(), imageDimensions()]
   },
 
   integrations: [sitemap()]

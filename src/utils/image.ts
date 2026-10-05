@@ -14,9 +14,7 @@
  *  Ported from the safeinsound site, plus `dimensions()` and width-descriptor
  *  srcsets for the full-bleed heroes.
  */
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { imageSize } from 'image-size';
+import sizes from 'virtual:image-dimensions';
 
 /** Widest we ever ask for. Beyond this the bytes stop buying visible detail. */
 const MAX_WIDTH = 2400;
@@ -85,21 +83,15 @@ export function resizedWidths(path: string, intrinsic?: number): string | undefi
 }
 
 /**
- * The upload's own pixel size, read from public/ at build time, so the <img>
- * can carry width/height and the browser reserves its box before it loads.
+ * The upload's own pixel size, so the <img> can carry width/height and the
+ * browser reserves its box before it loads. Read from public/ at build time
+ * by src/integrations/image-dimensions.mjs.
  *
- * Undefined for anything that isn't a readable local file — a remote URL, or
- * a path the CMS saved for an upload that has since been deleted. The page
- * still builds; that one image just goes without.
+ * Undefined for anything that isn't a local file — a remote URL, or a path
+ * the CMS saved for an upload that has since been deleted. The page still
+ * builds; that one image just goes without.
  */
 export function dimensions(path: string): { width: number; height: number } | undefined {
-  if (!path.startsWith('/')) return undefined;
-  try {
-    const file = join(process.cwd(), 'public', decodeURI(path));
-    const { width, height, orientation } = imageSize(readFileSync(file));
-    // EXIF orientations 5–8 are a phone photo stored on its side.
-    return orientation && orientation >= 5 ? { width: height, height: width } : { width, height };
-  } catch {
-    return undefined;
-  }
+  const size = sizes[decodeURI(path)];
+  return size && { width: size[0], height: size[1] };
 }

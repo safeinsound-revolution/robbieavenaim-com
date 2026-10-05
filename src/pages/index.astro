@@ -137,7 +137,9 @@ const person = {
       cue.classList.toggle("opacity-0", scrolled);
       cue.classList.toggle("pointer-events-none", scrolled);
     };
-    update();
+    // Next frame, not now: reading scrollY mid-load forces a synchronous
+    // layout (Lighthouse's "forced reflow").
+    requestAnimationFrame(update);
     window.addEventListener("scroll", update, { passive: true });
   }
 </script>
