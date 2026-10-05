@@ -68,3 +68,9 @@ photo, so fall back with `||`, not `??`.
 Content ordering is drag-and-drop in the CMS and there is no Display Order field. The `order` frontmatter is
 written by the CMS and is deliberately absent from `config.yml`'s `fields`; Grants have no `order` at all.
 See README → "Content editing".
+
+## Images, and reading files at build time
+
+Every photo is a CMS upload in `public/images/` at full camera size, and goes out through `src/components/Img.astro`, which rewrites it to Cloudflare's `/cdn-cgi/image/...` resizer. That needs **Image Transformations switched on for the zone** (on since 2026-10-05); turn it off and every photo on the site 404s. Use `<Img>` for any new image, never a bare `<img>`. See README → "Deployment".
+
+**Never read files with `node:fs` (or `process.cwd()` paths) in page or component frontmatter.** The repo has no wrangler config, so Cloudflare's build adds the `@astrojs/cloudflare` adapter, and the pages are then built where `public/` can't be read. It fails silently: the first version of the image width/height code shipped every `<img>` without dimensions while the local `dist/` looked perfect (2026-10-05). Do build-time file reads in a Vite plugin and import the result as a virtual module, as `src/integrations/image-dimensions.mjs` does, and check the result on the **live** HTML after deploying.
