@@ -38,6 +38,8 @@ const ogImage = new URL(image, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <title>{title}</title>
+    {/* Per-page extras for <head>, e.g. the homepage's structured data. */}
+    <slot name="head" />
   </head>
   <body class="bg-ink text-paper antialiased">
     <Nav />

@@ -1,7 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Img from "../components/Img.astro";
 import { getCollection } from "astro:content";
 import home from "../content/home.json";
+import { socials } from "../utils/socials";
 
 const projects = (await getCollection("projects")).sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity));
 
@@ -17,13 +19,34 @@ type HomeEvent = {
 };
 const events: HomeEvent[] = (home as { upcomingEvents?: HomeEvent[] }).upcomingEvents ?? [];
 const showEvents = home.showUpcomingEvents !== false && events.length > 0;
+
+// Who this site is about, for search engines and AI answer engines: the
+// identity schema the SEO audit (2026-10-05) asked for. Person, not
+// Organization, because the site is one artist. sameAs comes from the same
+// CMS list as the footer links, so a profile added there lands here too.
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Robbie Avenaim",
+  url: new URL("/", Astro.site).href,
+  image: new URL("/images/hero/robbie-with-sarps.jpg", Astro.site).href,
+  description: "Australian drummer, sound and installation artist working with robotic and kinetic percussion.",
+  jobTitle: "Drummer, sound and installation artist",
+  nationality: { "@type": "Country", name: "Australia" },
+  sameAs: socials.map((s) => s.url),
+};
 ---
 <Layout title="Robbie Avenaim — Drummer, Sound & Installation Artist">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(person)} />
   <section class="relative">
     <div class="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[3/2] lg:aspect-[16/10]">
-      <img
+      {/* The LCP element: requested at high priority, never lazy. */}
+      <Img
         src={home.heroImage}
-        alt={home.heroCaption ?? "Robbie Avenaim"}
+        alt={home.heroCaption || "Robbie Avenaim"}
+        w={2400}
+        sizes="100vw"
+        fetchpriority="high"
         class="h-full w-full object-cover object-top opacity-90"
       />
       <div
@@ -88,13 +111,13 @@ const showEvents = home.showUpcomingEvents !== false && events.length > 0;
     <div class="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((p) => (
         <a href={`/projects/${p.id}/`} class="group relative flex min-h-[220px] flex-col justify-end bg-ink p-6">
-          {p.data.heroImage && (
-            <img
-              src={p.data.heroImage}
-              alt={p.data.title}
-              class="absolute inset-0 h-full w-full object-cover opacity-30 transition-opacity duration-300 group-hover:opacity-50"
-            />
-          )}
+          <Img
+            src={p.data.heroImage}
+            alt={p.data.title}
+            w={640}
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover opacity-30 transition-opacity duration-300 group-hover:opacity-50"
+          />
           <div class="relative">
             <h3 class="text-lg font-bold leading-snug">{p.data.title}</h3>
             <p class="mt-2 line-clamp-2 text-sm text-muted">{p.data.summary}</p>

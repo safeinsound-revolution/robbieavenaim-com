@@ -96,6 +96,10 @@ collections:
         fields:
           - { label: Instagram URL, name: instagram, widget: string, required: false }
           - { label: Facebook URL, name: facebook, widget: string, required: false }
+          - { label: YouTube URL, name: youtube, widget: string, required: false }
+          - { label: Bandcamp URL, name: bandcamp, widget: string, required: false }
+          - { label: LinkedIn URL, name: linkedin, widget: string, required: false }
+          - { label: X (Twitter) URL, name: x, widget: string, required: false }
           - { label: Email, name: email, widget: string, required: false }
 
   - name: projects

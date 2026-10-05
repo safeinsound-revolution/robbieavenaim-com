@@ -154,3 +154,9 @@ headless Chrome at 1200×630. Text, colours and the crop centre are constants at
 
 `@astrojs/sitemap` builds `sitemap-index.xml` (→ `sitemap-0.xml`) on every build, and `public/robots.txt`
 points crawlers at it. Submitting it in Google Search Console is still outstanding (Robbie's browser task).
+
+The homepage also carries a schema.org `Person` block (JSON-LD, in `src/pages/index.astro`) whose `sameAs` list is the same set of profiles the footer links to, both read from `src/utils/socials.ts` and edited in the CMS under **Contact & Socials**. Leave a profile blank and it is simply left out of both. `/llms.txt` (a Markdown site map for AI answer engines) is generated at build time by `src/pages/llms.txt.ts`, so new projects appear in it without anyone touching it.
+
+**Images are resized by Cloudflare on the way out.** CMS uploads are stored at whatever size they arrive (multi-MB camera files and screenshots are normal), and every page renders them through `src/components/Img.astro`, which points `src`/`srcset` at `/cdn-cgi/image/...` so Cloudflare returns a sized WebP/AVIF instead, and stamps the original's width/height on the tag (read from `public/` at build time) so the page doesn't jump as images load. This depends on **Image Transformations being switched on for the zone** (it was turned on 2026-10-05, along with **Always Use HTTPS**); if it is ever turned off, every photo on the site 404s. Dev mode and `astro preview` serve the originals, because `/cdn-cgi` only exists behind Cloudflare. Use `<Img>` for any new image: `w` is the widest it is ever displayed, and a full-bleed image gets `sizes="100vw"` as well.
+
+`public/_headers` gives Astro's fingerprinted `/_astro/*` files a one-year immutable cache and photos a one-day one.

@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Img from "../components/Img.astro";
 import about from "../content/about.json";
 ---
 <Layout title="About — Robbie Avenaim" description={about.shortBio}>
@@ -9,13 +10,12 @@ import about from "../content/about.json";
 
     <div class="grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-16">
       <div>
-        {about.portrait && (
-          <img
-            src={about.portrait}
-            alt="Robbie Avenaim"
-            class="w-full border border-line object-cover"
-          />
-        )}
+        <Img
+          src={about.portrait}
+          alt="Robbie Avenaim"
+          w={720}
+          class="w-full border border-line object-cover"
+        />
       </div>
 
       <div class="max-w-2xl">

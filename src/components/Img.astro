@@ -1,0 +1,47 @@
+---
+/** An uploaded image, resized by Cloudflare on the way out.
+ *
+ *  Drop-in for a plain <img>: every other attribute (class, loading,
+ *  fetchpriority) passes straight through, so a call site keeps whatever it
+ *  already had. Two additions:
+ *
+ *  - `w` — the widest the image is ever *displayed*, which is what decides how
+ *    big a file to ask for. Gets a 1x/2x srcset.
+ *  - `sizes` — for a full-bleed image whose width tracks the viewport. Swaps
+ *    the 1x/2x pair for a ladder of widths, so a phone takes a phone-sized
+ *    file instead of the 2x of a desktop one.
+ *
+ *  width/height come from the original file, so the browser can reserve the
+ *  image's box before a byte of it arrives. Where CSS already fixes the box
+ *  (object-cover in an aspect-ratio frame) they change nothing on screen.
+ *
+ *  Renders nothing without a src, matching the `{image && <img …>}` guard the
+ *  call sites used to write by hand.
+ */
+import { dimensions, resized, resizedSrcset, resizedWidths } from '../utils/image';
+
+interface Props {
+  src?: string;
+  alt?: string;
+  /** Widest displayed size in CSS pixels — not the size of the original. */
+  w: number;
+  sizes?: string;
+  [key: string]: unknown;
+}
+
+const { src, alt = '', w, sizes, ...rest } = Astro.props;
+const size = src ? dimensions(src) : undefined;
+const srcset = src && (sizes ? resizedWidths(src, size?.width) : resizedSrcset(src, w));
+---
+
+{src && (
+  <img
+    src={resized(src, w)}
+    srcset={srcset}
+    sizes={srcset && sizes ? sizes : undefined}
+    alt={alt}
+    width={size?.width}
+    height={size?.height}
+    {...rest}
+  />
+)}

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Img from "../../components/Img.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -38,7 +39,7 @@ const hasVideos = videos.some((v) => v.parsed);
   <section>
     {project.data.heroImage && (
       <div class="aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
-        <img src={project.data.heroImage} alt={project.data.title} class="h-full w-full object-cover" />
+        <Img src={project.data.heroImage} alt={project.data.title} w={2400} sizes="100vw" fetchpriority="high" class="h-full w-full object-cover" />
       </div>
     )}
     <div class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
@@ -93,7 +94,7 @@ const hasVideos = videos.some((v) => v.parsed);
         <div class="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {project.data.gallery.map((src) => (
             <div class="aspect-square overflow-hidden border border-line bg-surface">
-              <img src={src} alt="" loading="lazy" class="h-full w-full object-cover" />
+              <Img src={src} w={400} loading="lazy" class="h-full w-full object-cover" />
             </div>
           ))}
         </div>
