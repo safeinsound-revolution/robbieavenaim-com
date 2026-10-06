@@ -136,6 +136,8 @@ The site is a **Cloudflare Worker** (Static Assets) named `robbieavenaim-com`, c
 **A normal push to `main` auto-builds and deploys** (`npm run build` → `dist`, ~60–90s). There's nothing to
 run by hand.
 
+**`/stats/` is not served by this Worker.** https://robbieavenaim.com/stats/ (visitor stats from Cloudflare Web Analytics, behind a Cloudflare Access sign-in for Robbie and Joseph) comes from the `safeinsound-stats` Worker in the Safe in Sound repo (`workers/stats/`), on routes `robbieavenaim.com/stats` and `/stats/*` (www too). A Worker route takes precedence over this Worker's Custom Domain on the same hostname, so nothing here needed to change. Don't add a `/stats` page to this site, it would never be reached. Added 2026-10-06; see that repo's README, "Visitor stats".
+
 CMS saves are ordinary commits and build like any other — see
 [Publishing CMS edits](#publishing-cms-edits). (They were marked to skip the build until 1 Aug 2026.)
 
