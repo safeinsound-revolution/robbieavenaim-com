@@ -1,0 +1,50 @@
+# Cloudflare Workers Static Assets redirects.
+# Old URLs from the WordPress site (with and without /index.php/) and the
+# older iWeb site, which Google still has indexed. Each goes to the page that
+# replaced it. Pages with no equivalent (/blog/, /sample-page/) are left to 404
+# on purpose: redirecting them to the homepage reads to Google as a soft 404.
+
+# WordPress
+/index.php                                                  /                      301
+/index.php/                                                 /                      301
+/home.html                                                  /                      301
+/index.php/biography/                                       /about/                301
+/index.php/biography-2/                                     /about/                301
+/biography/                                                 /about/                301
+/biography-2/                                               /about/                301
+/index.php/media-kit/                                       /about/                301
+/media-kit/                                                 /about/                301
+/index.php/contact/                                         /about/                301
+/contact/                                                   /about/                301
+/index.php/discography/                                     /discography/          301
+/index.php/grants-awards/                                   /grants/               301
+/grants-awards/                                             /grants/               301
+/index.php/testimonials/                                    /testimonials/         301
+/index.php/projects/                                        /projects/             301
+/index.php/safe-is-sound/                                   /projects/safe-in-sound/ 301
+/safe-is-sound/                                             /projects/safe-in-sound/ 301
+/index.php/sarps-semi-automated-robotic-percussion-system/  /projects/sarps/       301
+/sarps-semi-automated-robotic-percussion-system/            /projects/sarps/       301
+/index.php/ssl-2/                                           /projects/ssl/         301
+/ssl-2/                                                     /projects/ssl/         301
+/index.php/vstix-ems/                                       /projects/motor-stick/ 301
+/vstix-ems/                                                 /projects/motor-stick/ 301
+/index.php/what-is-music/                                   /projects/what-is-music/ 301
+/what-is-music/                                             /projects/what-is-music/ 301
+/index.php/privacy-policy-2/                                /privacy-policy/       301
+/privacy-policy-2/                                          /privacy-policy/       301
+
+# iWeb (pre-WordPress)
+/biography.html                                             /about/                301
+/discography.html                                           /discography/          301
+/current_projects.html                                      /projects/             301
+/robbieavenaim.com/HOME.html                                /                      301
+/robbieavenaim.com/About.html                               /about/                301
+/robbieavenaim.com/biography.html                           /about/                301
+/robbieavenaim.com/CV.html                                  /about/                301
+/robbieavenaim.com/discography.html                         /discography/          301
+/robbieavenaim.com/sarps.html                               /projects/sarps/       301
+/robbieavenaim.com/S.A.R.P.S.html                           /projects/sarps/       301
+/robbieavenaim.com/Sonic_Systems_Laboratory.html            /projects/ssl/         301
+/S.S.L.html                                                 /projects/ssl/         301
+/robbieavenaim.com/WHAT_IS_MUSIC.html                       /projects/what-is-music/ 301
