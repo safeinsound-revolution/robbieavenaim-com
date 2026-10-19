@@ -43,8 +43,7 @@ A few things that aren't obvious:
   they moved under it — they are still `/grants/` and `/testimonials/`, so older links still work.
 - **"Upcoming Events"** (Pages → Homepage) only appears on the site when the *Show "Upcoming Events" section*
   switch is on **and** at least one event has been added. Emptying the list hides the whole section — that's
-  intended, not a bug. Dates are free text (e.g. `12–14 Sep 2026`), so past events don't disappear on their
-  own; delete them when they're done. **Details preserves line breaks** as typed (the field is rendered
+  intended, not a bug. **Date** is free text (e.g. `12–14 Sep 2026`) and is only what visitors see. **Last day** is a date picker, and once that day has passed the event drops off the homepage by itself, with no redeploy needed: the build leaves it out, and a small script on the page hides any that ended since the last build (and hides the section if none are left). An event with no Last day stays up until it's deleted. **Details preserves line breaks** as typed (the field is rendered
   `whitespace-pre-line`), so an event can be laid out like a poster. **Link Label** is the wording on the
   button and falls back to "More info" when left blank — it is not the URL; that goes in **Link URL**.
 

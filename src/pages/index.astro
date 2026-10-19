@@ -8,7 +8,7 @@ import { socials } from "../utils/socials";
 const projects = (await getCollection("projects")).sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity));
 
 // The Upcoming Events section only renders when the CMS toggle is on *and*
-// at least one event has been added — so it disappears on its own when empty.
+// at least one event is still to come — so it disappears on its own when empty.
 type HomeEvent = {
   date: string;
   title: string;
@@ -16,8 +16,22 @@ type HomeEvent = {
   details?: string;
   link?: string;
   linkLabel?: string;
+  endDate?: string;
 };
-const events: HomeEvent[] = (home as { upcomingEvents?: HomeEvent[] }).upcomingEvents ?? [];
+
+// "Last day" is a CMS date picker saved as YYYY-MM-DD; `date` stays free text
+// for display ("12–14 Sep 2026"), which nothing can reliably parse. home.json
+// isn't a validated collection, so a never-filled picker arrives here as ''
+// rather than failing the build. No last day means the event never expires.
+const lastDay = (e: HomeEvent) => e.endDate?.match(/^\d{4}-\d{2}-\d{2}/)?.[0];
+
+// An event is over once its last day has ended in Sydney. Dropping past events
+// here keeps them out of the HTML; the script below hides any that end between
+// builds, since nothing redeploys the site just because a date has passed.
+const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Australia/Sydney" }).format(new Date());
+const events = ((home as { upcomingEvents?: HomeEvent[] }).upcomingEvents ?? []).filter(
+  (e) => (lastDay(e) ?? today) >= today,
+);
 const showEvents = home.showUpcomingEvents !== false && events.length > 0;
 
 // Who this site is about, for search engines and AI answer engines: the
@@ -74,11 +88,11 @@ const person = {
   </section>
 
   {showEvents && (
-    <section class="mx-auto max-w-6xl px-5 pb-4 sm:px-8">
+    <section id="events" class="mx-auto max-w-6xl px-5 pb-4 sm:px-8">
       <h2 class="mb-8 text-xl font-bold tracking-tight sm:text-2xl">Upcoming Events</h2>
       <ul class="flex flex-col divide-y divide-line border-y border-line">
         {events.map((e) => (
-          <li class="flex flex-col gap-2 py-5 sm:flex-row sm:gap-8">
+          <li class="flex flex-col gap-2 py-5 sm:flex-row sm:gap-8" data-last-day={lastDay(e)}>
             <span class="w-44 shrink-0 font-mono text-sm text-accent">{e.date}</span>
             <div class="flex-1">
               <h3 class="text-lg font-bold leading-snug">{e.title}</h3>
@@ -101,6 +115,18 @@ const person = {
           </li>
         ))}
       </ul>
+      <script>
+        // Hide events whose last day is behind the visitor's today, and the
+        // whole section if that leaves nothing. The build has already dropped
+        // whatever was over when the site last deployed.
+        const section = document.getElementById("events");
+        if (section) {
+          const today = new Intl.DateTimeFormat("en-CA").format(new Date());
+          const items = [...section.querySelectorAll<HTMLElement>("li[data-last-day]")];
+          for (const li of items) if (li.dataset.lastDay! < today) li.hidden = true;
+          if (!section.querySelector("li:not([hidden])")) section.hidden = true;
+        }
+      </script>
     </section>
   )}
 

@@ -61,6 +61,13 @@ collections:
                 name: date
                 widget: string
                 hint: 'Free text, e.g. "Sat 12 Sep 2026" or "12–14 Sep 2026".'
+              - label: Last day
+                name: endDate
+                widget: datetime
+                time_format: false
+                format: YYYY-MM-DD
+                required: false
+                hint: 'The event drops off the homepage by itself the day after this. Leave blank to keep it up until you delete it.'
               - { label: Event Title, name: title, widget: string }
               - label: Venue / Location
                 name: venue
