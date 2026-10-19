@@ -137,6 +137,8 @@ run by hand.
 
 **`/stats/` is not served by this Worker.** https://robbieavenaim.com/stats/ (visitor stats from Cloudflare Web Analytics, behind a Cloudflare Access sign-in for Robbie and Joseph) comes from the `safeinsound-stats` Worker in the Safe in Sound repo (`workers/stats/`), on routes `robbieavenaim.com/stats` and `/stats/*` (www too). A Worker route takes precedence over this Worker's Custom Domain on the same hostname, so nothing here needed to change. Don't add a `/stats` page to this site, it would never be reached. Added 2026-10-06; see that repo's README, "Visitor stats".
 
+**The domain must stay on Robbie's Cloudflare account** (nameservers `houston`/`lara.ns.cloudflare.com`). The Worker, its custom domain, the image resizing, `/stats/` and the CMS sign-in all live there, and a custom domain can only attach to a zone in the same account. Adding robbieavenaim.com to any other Cloudflare account and pointing the nameservers at it takes the site down (it happened on 2026-10-19, with a Cloudflare "error 1000" page and Robbie's mail app broken until the nameservers were put back). The registration itself was at ChemiCloud and is being transferred to Cloudflare Registrar in Robbie's account (started 2026-10-19).
+
 CMS saves are ordinary commits and build like any other — see
 [Publishing CMS edits](#publishing-cms-edits). (They were marked to skip the build until 1 Aug 2026.)
 
