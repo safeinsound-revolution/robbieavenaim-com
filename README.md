@@ -156,7 +156,9 @@ It crops the hero photo, builds a branded HTML card in the site's own palette, a
 headless Chrome at 1200×630. Text, colours and the crop centre are constants at the top of that file.
 
 `@astrojs/sitemap` builds `sitemap-index.xml` (→ `sitemap-0.xml`) on every build, and `public/robots.txt`
-points crawlers at it. Submitting it in Google Search Console is still outstanding (Robbie's browser task).
+points crawlers at it. Google Search Console is set up for the site (confirmed 2026-10-20); whether the sitemap has been submitted there hasn't been checked.
+
+**Old URLs and `www` redirect to the current site.** `public/_redirects` sends the previous sites' addresses (the WordPress pages, with and without `/index.php/`, and the iWeb `.html` pages before them) to the page that replaced each one, with a 301. It came from Search Console's "Not found" report and the Wayback Machine's record of both sites. `/blog/` and `/sample-page/` have no equivalent and are left to 404 on purpose, since a redirect to the homepage counts as a soft 404. The file matches exact paths, so the trailing-slash-less forms (`/grants-awards`) still 404. Separately, `www.robbieavenaim.com` 301s to the apex through a zone **Redirect Rule** ("www to apex", Rules → Redirect Rules in Robbie's Cloudflare dashboard, added 2026-10-20); the Worker itself never sees `www` requests now.
 
 The homepage also carries a schema.org `Person` block (JSON-LD, in `src/pages/index.astro`) whose `sameAs` list is the same set of profiles the footer links to, both read from `src/utils/socials.ts` and edited in the CMS under **Contact & Socials**. Leave a profile blank and it is simply left out of both. `/llms.txt` (a Markdown site map for AI answer engines) is generated at build time by `src/pages/llms.txt.ts`, so new projects appear in it without anyone touching it.
 
